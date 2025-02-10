@@ -1,0 +1,131 @@
+@use "sass:color";
+
+@use "@material/theme/color-palette";
+
+$background-light: #fff;
+$background-dark: #1f1f1f;
+$primary: #42a4f5;
+$complementary: #f59342;
+$analogous-1: #42f5ec;
+$analogous-2: #424bf5;
+$triadic-1: #9342f5;
+$triadic-2: #f542a4;
+
+// Svelte Colors!
+@use "@material/theme/index" as theme with (
+  $primary: $primary,
+  $secondary: $complementary,
+  $surface: $background-light,
+  $background: $background-light,
+  $error: $triadic-2,
+  $on-primary: #fff,
+  $on-error: #fff,
+  $on-secondary: #fff
+);
+
+// Import the mixins.
+@use "@material/typography/index" as typography;
+
+[data-theme="dark"] {
+  html,
+  body {
+    --mdc-theme-surface: #1f1f1f;
+    --mdc-theme-background: #1f1f1f;
+    --mdc-theme-on-surface: #fff;
+    --mdc-theme-text-hint-on-background: rgba(255, 255, 255, 0.38);
+    --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.54);
+    background-color: $background-dark;
+    color: if(theme.contrast-tone($background-dark) == "dark", #000, #fff);
+  }
+  .mdc-drawer .mdc-deprecated-list-item .mdc-deprecated-list-item__text {
+    color: rgba(255, 255, 255, 0.87) !important;
+  }
+  .mdc-deprecated-list-item--selected .mdc-deprecated-list-item__primary-text {
+    color: $primary !important;
+  }
+
+  .mdc-drawer .mdc-deprecated-list-item__graphic {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+[data-theme="light"] {
+  html,
+  body {
+    --mdc-theme-surface: #fff;
+    --mdc-theme-background: #fff;
+    --mdc-theme-on-surface: #000;
+    background-color: $background-light;
+    color: if(theme.contrast-tone($background-light) == "dark", #000, #fff);
+  }
+  .mdc-deprecated-list-item--selected .mdc-deprecated-list-item__primary-text {
+    color: $primary !important;
+  }
+}
+
+html,
+body {
+  transition: background-color 1s ease, color 1s ease;
+  margin: 0;
+}
+
+.mdc-top-app-bar {
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+a {
+  color: $analogous-1;
+}
+a:visited {
+  color: color.scale($analogous-1, $lightness: -35%);
+}
+
+html {
+  @include typography.typography("body1");
+}
+
+h1 {
+  @include typography.typography("headline1");
+}
+
+h2 {
+  @include typography.typography("headline2");
+}
+
+h3 {
+  @include typography.typography("headline3");
+}
+
+h4 {
+  @include typography.typography("headline4");
+}
+
+h5 {
+  @include typography.typography("headline5");
+}
+
+h6 {
+  @include typography.typography("headline6");
+}
+
+caption {
+  @include typography.typography("caption");
+}
+
+code,
+pre {
+  font-family: "Roboto Mono", monospace;
+}
+
+small {
+  font-size: 0.9em;
+}
+
+big {
+  font-size: 1.1em;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
