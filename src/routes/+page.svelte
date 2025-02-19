@@ -1,10 +1,15 @@
 <script>
   import AppBar from "$lib/components/AppBar.svelte";
+  import CreateChatModal from "$lib/components/CreateChatModal.svelte";
+  import SettingsModal from "$lib/components/SettingsModal.svelte";
   import Sidebar from "$lib/components/Sidebar.svelte";
+  import { AppContent } from "@smui/drawer";
   import { AutoAdjust } from "@smui/top-app-bar";
 
   let sidebarOpen = $state(true);
   let appBar = $state(null);
+  let settingsOpen = $state(false);
+  let createChatOpen = $state(false);
 
   /** @type {import('./$types').PageProps} */
   const { data } = $props();
@@ -101,8 +106,17 @@
 
 <div class="app-content">
   <AppBar bind:sidebarOpen bind:appBar />
-  <Sidebar open={sidebarOpen} chats={Object.values(availableChats)} />
-  <AutoAdjust topAppBar={appBar}></AutoAdjust>
+  <Sidebar
+    open={sidebarOpen}
+    chats={Object.values(availableChats)}
+    bind:settingsOpen
+    bind:createChatOpen
+  />
+  <AppContent>
+    <AutoAdjust topAppBar={appBar}></AutoAdjust>
+  </AppContent>
+  <CreateChatModal bind:open={createChatOpen}/>
+  <SettingsModal bind:open={settingsOpen} />
 </div>
 
 <style>

@@ -11,17 +11,17 @@ $analogous-2: #424bf5;
 $triadic-1: #9342f5;
 $triadic-2: #f542a4;
 
-// Svelte Colors!
-@use "@material/theme/index" as theme with (
+// Svelte Colors! (Dark Theme)
+@use "@material/theme/index" as themed with (
   $primary: $primary,
   $secondary: $complementary,
-  $surface: $background-light,
-  $background: $background-light,
+  $surface: $background-dark,
+  $background: $background-dark,
   $error: $triadic-2,
   $on-primary: #fff,
   $on-error: #fff,
   $on-secondary: #1f1f1f,
-  $on-surface: #1f1f1f
+  $on-surface: #fff
 );
 
 // Import the mixins.
@@ -29,16 +29,11 @@ $triadic-2: #f542a4;
 @use "@smui/snackbar/style" as smui-snackabar;
 @use "@material/snackbar/mixins" as snackbar;
 
-html,
-body {
-  margin: 0;
-}
-
-[data-theme="light"] {
+[data-theme="dark"] {
   html,
   body {
-    background-color: $background-light;
-    color: if(theme.contrast-tone($background-light) == "dark", #000, #fff);
+    background-color: $background-dark;
+    color: if(themed.contrast-tone($background-dark) == "dark", #000, #fff);
   }
 
   a {
@@ -51,10 +46,9 @@ body {
   .mdc-top-app-bar {
     color: rgba(255, 255, 255, 0.87) !important;
   }
-
   .mdc-snackbar.snackbar-error {
     @include snackbar.fill-color($triadic-2);
-    @include snackbar.label-ink-color(theme.accessible-ink-color($triadic-2));
+    @include snackbar.label-ink-color(themed.accessible-ink-color($triadic-2));
   }
 }
 
